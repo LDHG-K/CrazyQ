@@ -11,7 +11,7 @@ public class PanelOptions extends JPanel implements ActionListener {
 
 	private boolean qcent = true;
 	private boolean pcent = false;
-	private boolean gcent = false;
+	private boolean gcent = true;
 	
 	private JButton player;
 	private JButton questions;
@@ -59,7 +59,15 @@ public class PanelOptions extends JPanel implements ActionListener {
         else if( comando.equals( game.getActionCommand() ) )
         {
         	
+        	if (gcent==true) {
+        		principal.getPanelTop().changeText("¡Lest play!");
+        	}
+        	else {
+        		principal.getPanelTop().changeText("¡CrazyQ!");
+    		}
+        	principal.showGame(gcent);
         	
+        	gcent = !gcent;
         	
         }
         else if( comando.equals( questions.getActionCommand() ) )

@@ -16,6 +16,7 @@ public class Principal extends JFrame {
 	private PanelTop panelTop;
 	private PanelOptions panelOptions;
 	private PanelConfig panelConfig;
+	private PanelGame panelGame;
 	//Components
 	
 	public Principal() {
@@ -35,20 +36,44 @@ public class Principal extends JFrame {
 		panelTop = new PanelTop(this);
 		panelOptions = new PanelOptions(this);
 		panelConfig = new PanelConfig(this);
-		
+		panelGame = new PanelGame(this);
 		
 		add(panelTop,BorderLayout.NORTH);
 		add(panelOptions,BorderLayout.SOUTH);
-		add(panelConfig,BorderLayout.CENTER);
 		
-		panelConfig.setVisible(false);
+		//add(panelGame,BorderLayout.CENTER);
+		
+		//panelGame.setVisible(false);
+		//panelConfig.setVisible(false);
 	}
 	
 	public void showConfig(boolean state) {
 		
-		panelConfig.setVisible(state);
+		if (state) {
+			panelConfig = new PanelConfig(this);
+			add(panelConfig,BorderLayout.CENTER);
+		}
+		else {
+			remove(panelConfig);
+			repaint();
+		}
+		
+		
 		
 	}
+	
+	public void showGame(boolean state) {
+		
+		if (state) {
+			panelGame = new PanelGame(this);
+			add(panelGame,BorderLayout.CENTER);
+		}
+		else {
+			remove(panelGame);
+			repaint();
+		}
+	}
+	
 
 	public PanelTop getPanelTop() {
 		return panelTop;
