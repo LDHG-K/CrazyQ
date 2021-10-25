@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.Category;
+import domain.Dificulty;
 import domain.Question;
 import services.Crud;
 
@@ -137,10 +138,14 @@ public class QuestionDao implements Crud {
         }
 	}
 
-
-	public List<Object> questionByCategory(Category category) {
+	
+	public List<Object> questionsByCategory(Category category  )
+	{
 		try {
-            String cad = "SELECT * FROM QUESTIONS WHERE category_id = " + category.getIdCategory();
+			
+            String cad ="SELECT id_question, queston, answer_1, answer_2, answer_3, answer_4, category_id, questions.dificulty, dificulties.dificulty_score\r\n"
+            		+ "	FROM public.questions, public.dificulties where questions.dificulty = dificulties.id_dificultad and  category_id = "+ category.getIdCategory()+
+            		"Order by dificulties.dificulty_score";
             
             ResultSet res;
             List<Object> resp = new ArrayList<Object>();
@@ -158,7 +163,11 @@ public class QuestionDao implements Crud {
 				c.setAnswer4(res.getString(5));
 				c.setCategoryId(res.getInt(6));
 				c.setDificultyId(res.getInt(7));
-                
+				
+				Dificulty d = new Dificulty();
+				d.setDificultyScore(res.getLong(8));
+				c.setDificultyBean(d);
+				
                 resp.add(c);
             }
             

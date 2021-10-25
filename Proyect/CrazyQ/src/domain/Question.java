@@ -28,7 +28,6 @@ public class Question implements Serializable {
 
 	private Category category;
 
-
 	private Dificulty dificultyBean;
 
 	private List<Round> rounds;

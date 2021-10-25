@@ -38,6 +38,17 @@ public class DificultyService {
 		
 	}
 	
+	public List<Object> listOfDificulties(){
+		
+		try {
+			
+			return dd.listAll();
+			
+		} catch (Exception e) {
+			return null;
+			// TODO: handle exception
+		}
+	}
 	
 	
 }

@@ -32,11 +32,15 @@ public class QuestionService {
 		
 	}
 	
-	public List<Object> questionsByCategory(Category category){
+	public List<Object> questionsByCategory(String category){
 		
 		try {
+			Category cat = new Category();
+			cat.setCategoryName(category);
+			List <Object> res = qJpa.questionsByCategory(cat);
 			
-			List <Object> res = qJpa.questionByCategory(category);
+			
+			
 			
 			return res;
 		} 
