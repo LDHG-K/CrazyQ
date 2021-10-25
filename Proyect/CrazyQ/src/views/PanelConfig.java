@@ -3,6 +3,7 @@ package views;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,8 +11,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import domain.Category;
+import domain.Dificulty;
+import domain.Question;
+
 public class PanelConfig extends JPanel implements ActionListener {
 
+	private Principal principal;
+	
 	private JLabel ql;
 	private JTextField question;
 	
@@ -38,6 +45,8 @@ public class PanelConfig extends JPanel implements ActionListener {
 	
 	public PanelConfig(Principal principal) {
 		
+		this.principal = principal;
+		
 		setLayout(new GridLayout(8, 2));
 		
 		ql = new JLabel("Question :");
@@ -57,6 +66,8 @@ public class PanelConfig extends JPanel implements ActionListener {
 		
 		categories = new JComboBox<Object>();
 		dificulties = new JComboBox<Object>();
+	
+		fillcombos();
 		
 		add = new JButton("ADD + ");
 		add.setActionCommand("A");
@@ -81,11 +92,67 @@ public class PanelConfig extends JPanel implements ActionListener {
 	}
 	
 	
+	public void fillcombos() {
+	
+		List<Object> cat = principal.listCategories();
+		
+		List<Object> dif = principal.listDificulties();
+		
+		for (Object object : dif) {
+			
+			dificulties.addItem(((Dificulty) object ).getDificulty()); 
+		}
+		
+		for (Object object : cat) {
+			
+			categories.addItem(((Category) object ).getCategoryName()); 
+		}
+		
+		
+	}
+	
+	public int searchIdCategory(String cat ) {
+		
+		List<Object> cate = principal.listCategories();
+		for (Object object : cate) {
+			
+			if (cat.equals(((Category)object).getCategoryName())) {
+				return ((Category)object).getIdCategory();
+			}
+		}
+		return 0;
+	}
+	public int searchIdDificulty(String cat ) {
+		
+		List<Object> cate = principal.listDificulties();
+		for (Object object : cate) {
+			
+			if (cat.equals(((Dificulty)object).getDificulty())) {
+				return ((Dificulty)object).getIdDificultad();
+			}
+		}
+		return 0;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		String comando = e.getActionCommand( );
+
+        if( comando.equals( add.getActionCommand()) ) 
+        {
+        	Question q = new Question();
+        	q.setQueston(question.getText());
+        	q.setAnswer1(correctAns.getText());
+        	q.setAnswer2(ans2.getText());
+        	q.setAnswer3(ans3.getText());
+        	q.setAnswer4(ans4.getText());
+        	q.setCategoryId( searchIdCategory( (String) categories.getSelectedItem()));
+        	q.setDificultyId( searchIdDificulty( (String) dificulties.getSelectedItem()));
+        	principal.addQuestion(q);
+        }
 	}
 
+	
+	
 }

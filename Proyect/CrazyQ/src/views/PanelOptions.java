@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class PanelOptions extends JPanel implements ActionListener {
 
 	private boolean qcent = true;
-	private boolean pcent = false;
+	private boolean pcent = true;
 	private boolean gcent = true;
 	
 	private JButton player;
@@ -52,7 +52,15 @@ public class PanelOptions extends JPanel implements ActionListener {
 
         if( comando.equals( player.getActionCommand()) ) 
         {
-            
+        	if (pcent==true) {
+        		principal.getPanelTop().changeText("Choose your player!");
+        	}
+        	else {
+        		principal.getPanelTop().changeText("¡CrazyQ!");
+    		}
+        	principal.showPlayer(pcent);
+        	
+        	pcent = !pcent;
         	
         	
         }

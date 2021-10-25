@@ -17,18 +17,18 @@ public class QuestionDao implements Crud {
 		this.con = con;
 	}
 	
-	
+	//+c.getIdQuestion()+,
 	@Override
 	public boolean create(Object obj) {
 		Question c = (Question) obj;
 		try {
-			String cad = "INSERT INTO questions VALUES ("+c.getIdQuestion()+
-					",'"+c.getQueston()+
-					",'"+c.getAnswer1()+"','"+
+			String cad = "INSERT INTO questions (queston, answer_1, answer_2, answer_3, answer_4, category_id, dificulty) VALUES ("+
+					"'"+c.getQueston()+
+					"','"+c.getAnswer1()+"','"+
 					c.getAnswer2()+"','"+
 					c.getAnswer3()+"','"+
 					c.getAnswer4()+"',"+
-					c.getCategoryId()+"',"+
+					c.getCategoryId()+","+
 					c.getDificultyId()+")";
 					
 			con.executeUpdateStatement(cad);

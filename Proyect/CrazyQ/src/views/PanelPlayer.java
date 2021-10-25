@@ -40,8 +40,8 @@ public class PanelPlayer extends JPanel implements ActionListener {
 		add(p);
 		add(player);
 		add(ls);
-		add(lastScore);
 		add(bs);
+		add(lastScore);
 		add(bestScore);
 		add(space);
 		add(search);

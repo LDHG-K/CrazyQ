@@ -12,6 +12,7 @@ import repository.GameDao;
 import repository.PlayerDao;
 import repository.QuestionDao;
 import repository.RoundDao;
+import services.CategoryService;
 import services.DificultyService;
 import services.GameService;
 import services.PlayerService;
@@ -21,7 +22,7 @@ import services.RoundServices;
 public class GameController {
 
 	private final ConnectionPostgres con = new ConnectionPostgres();
-	//private final CategoryDao catdao = new CategoryDao(con);
+	private final CategoryDao catdao = new CategoryDao(con);
 	private final DificultyDao difdao = new DificultyDao(con);
 	private final GameDao gamdao = new GameDao(con);
 	private final PlayerDao pladao = new PlayerDao(con);
@@ -33,6 +34,7 @@ public class GameController {
 	private RoundServices rous;
 	private DificultyService difs;
 	private QuestionService ques;
+	private CategoryService cats;
 	
 	public GameController() {
 		
@@ -41,6 +43,7 @@ public class GameController {
 		rous = new RoundServices(roudao);
 		difs = new DificultyService(difdao);
 		ques = new QuestionService(quedao);
+		cats = new CategoryService(catdao);
 	}
 
 	/**
@@ -73,6 +76,41 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * get the list of dificulties
+	 * @return
+	 */
+	public List<Object> getDificulties(){
+		try {
+			return difs.listOfDificulties();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * get the list of categories
+	 * @return
+	 */
+	public List<Object> getCategories(){
+		try {
+			return cats.listCategories();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Creates a question
+	 * @param q
+	 */
+	public void createQuestion(Question q) {
+		try {
+			ques.CreateQuestion(q);
+		} catch (Exception e) {
+			
+		}
+	}
 	
 	
 	

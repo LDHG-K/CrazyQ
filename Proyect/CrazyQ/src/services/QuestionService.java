@@ -1,12 +1,12 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+
 import java.util.List;
 
 import domain.Category;
 import domain.Question;
-import repository.ConnectionPostgres;
+
 import repository.QuestionDao;
 
 public class QuestionService {
