@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import domain.Category;
 import domain.Question;
 import services.Crud;
 
@@ -109,6 +109,38 @@ public class QuestionDao implements Crud {
 	public List<Object> listAll() {
 		try {
             String cad = "SELECT * FROM questions";
+            
+            ResultSet res;
+            List<Object> resp = new ArrayList<Object>();
+            
+            res = con.executeQueryStatement(cad);
+            
+            while(res.next()){
+            	
+            	Question c = new Question();
+            	c.setIdQuestion(res.getInt(0));
+            	c.setQueston(res.getString(1));
+				c.setAnswer1(res.getString(2));
+				c.setAnswer2(res.getString(3));
+				c.setAnswer3(res.getString(4));
+				c.setAnswer4(res.getString(5));
+				c.setCategoryId(res.getInt(6));
+				c.setDificultyId(res.getInt(7));
+                
+                resp.add(c);
+            }
+            
+            return resp;
+            
+        } catch (Exception ex) {
+             return null;
+        }
+	}
+
+
+	public List<Object> questionByCategory(Category category) {
+		try {
+            String cad = "SELECT * FROM QUESTIONS WHERE category_id = " + category.getIdCategory();
             
             ResultSet res;
             List<Object> resp = new ArrayList<Object>();
