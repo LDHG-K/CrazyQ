@@ -20,6 +20,10 @@ public class Question implements Serializable {
 	private String answer4;
 
 	private String queston;
+	
+	private Integer categoryId;
+	
+	private Integer dificultyId;
 
 
 	private Category category;
@@ -118,4 +122,22 @@ public class Question implements Serializable {
 		return round;
 	}
 
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public Integer getDificultyId() {
+		return dificultyId;
+	}
+
+	public void setDificultyId(Integer dificultyId) {
+		this.dificultyId = dificultyId;
+	}
+
+	
+	
 }

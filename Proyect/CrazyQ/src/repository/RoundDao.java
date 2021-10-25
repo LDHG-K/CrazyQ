@@ -4,24 +4,29 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.Category;
 import domain.Dificulty;
+import domain.Question;
+import domain.Round;
 import services.Crud;
 
-public class DificultyDao implements Crud{
+public class RoundDao implements Crud{
 
 	private ConnectionPostgres con ;
 	
-	public DificultyDao(ConnectionPostgres con) {
-	this.con = con;
+	public RoundDao(ConnectionPostgres con) {
+		this.con = con;
 	}
-	
-	
+
 	@Override
 	public boolean create(Object obj) {
-		Dificulty c = (Dificulty) obj;
+		Round c = (Round) obj;
 		try {
-			String cad = "INSERT INTO Dificulties VALUES ("+c.getIdDificultad()+",'"+c.getDificulty()+"',"+c.getDificultyScore()+")";
+			String cad = "INSERT INTO rounds VALUES "+
+					"("+c.getGameId()+
+					","+c.getQuestionId()+
+					","+c.getRoundNumber()+","+
+					c.getAnswerScore()+")";
+					
 			con.executeUpdateStatement(cad);
 			con.aceptar();
 			return true;
@@ -34,15 +39,14 @@ public class DificultyDao implements Crud{
 
 	@Override
 	public Object read(Object obj) {
-		Dificulty c = (Dificulty) obj;
-		
+		Round c = (Round) obj;
 		try {
-			String cad = "SELECT * FROM Dificulties WHERE dificulty = "+c.getDificulty();
+			String cad = "SELECT * FROM rounds WHERE game_id = "+c.getGameId()+" AND questions_id = "+c.getQuestionId();
 			ResultSet res = con.executeQueryStatement(cad);
 			while(res.next())
             {
-				c.setDificulty(res.getString(1));
-				c.setDificultyScore(res.getLong(2));
+				c.setRoundNumber(res.getInt(2));
+				c.setAnswerScore(res.getInt(3));
             }
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -52,10 +56,11 @@ public class DificultyDao implements Crud{
 
 	@Override
 	public boolean update(Object obj) {
-		Dificulty c = (Dificulty) obj;
-		String cad = "UPDATE Dificulties SET dificulty = '"+ c.getDificulty()+"'"
-				+" , dificulty_score = "+ c.getDificultyScore()
-				+ "WHERE id_category = " + c.getIdDificultad();
+		Round c = (Round) obj;
+		
+		String cad = "UPDATE rounds SET round_number = '"+ c.getRoundNumber()+"'"
+				+" , answer_score = "+ c.getAnswerScore()
+				+ "WHERE game_id = " + c.getGameId() + " AND " + c.getQuestionId();
 		try {
 			if (!con.executeUpdateStatement(cad)) {
                 throw new Exception();
@@ -70,9 +75,9 @@ public class DificultyDao implements Crud{
 
 	@Override
 	public boolean delete(Object obj) {
-		Dificulty c = (Dificulty) obj;
-		
-		String cad = "DELETE FROM CATEGORIES WHERE id_dificultad ="+c.getIdDificultad();
+		Round c = (Round) obj;
+
+		String cad = "DELETE FROM rounds WHERE game_id ="+c.getGameId() + " AND " + " questions_id = "+ c.getQuestionId();
 		
 		try {
 			if (!con.executeUpdateStatement(cad)) {
@@ -84,7 +89,6 @@ public class DificultyDao implements Crud{
 		} catch (Exception e) {
 			return false;
 		}
-		
 	}
 
 	@Override
@@ -99,10 +103,11 @@ public class DificultyDao implements Crud{
             
             while(res.next()){
             	
-            	Dificulty c = new Dificulty();
-                c.setIdDificultad(Integer.parseInt(res.getString(1)));
-                c.setDificulty(res.getString(2));
-                c.setDificultyScore(res.getLong(3));
+            	Round c = new Round();
+                c.setGameId(res.getLong(0));
+                c.setQuestionId(res.getInt(1));
+                c.setRoundNumber(res.getInt(2));
+				c.setAnswerScore(res.getInt(3));
                 
                 resp.add(c);
             }
@@ -112,13 +117,7 @@ public class DificultyDao implements Crud{
         } catch (Exception ex) {
              return null;
         }
-		
-		
-		// TODO Auto-generated method stub
-		
 	}
-
-	
 	
 	
 	

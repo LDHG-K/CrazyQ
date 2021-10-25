@@ -11,6 +11,10 @@ public class Round implements Serializable {
 
 	private RoundPK id;
 
+	private Long gameId;
+	
+	private Integer questionId;
+	
 	private Integer answerScore;
 
 	private Integer roundNumber;
@@ -64,4 +68,22 @@ public class Round implements Serializable {
 		this.question = question;
 	}
 
+	public Long getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(Long gameId) {
+		this.gameId = gameId;
+	}
+
+	public Integer getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
+	}
+
+	
+	
 }
