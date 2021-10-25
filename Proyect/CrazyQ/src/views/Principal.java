@@ -15,7 +15,7 @@ public class Principal extends JFrame {
 	//Panels
 	private PanelTop panelTop;
 	private PanelOptions panelOptions;
-	
+	private PanelConfig panelConfig;
 	//Components
 	
 	public Principal() {
@@ -34,11 +34,46 @@ public class Principal extends JFrame {
 		//Panels
 		panelTop = new PanelTop(this);
 		panelOptions = new PanelOptions(this);
+		panelConfig = new PanelConfig(this);
 		
 		
 		add(panelTop,BorderLayout.NORTH);
 		add(panelOptions,BorderLayout.SOUTH);
+		add(panelConfig,BorderLayout.CENTER);
+		
+		panelConfig.setVisible(false);
 	}
+	
+	public void showConfig(boolean state) {
+		
+		panelConfig.setVisible(state);
+		
+	}
+
+	public PanelTop getPanelTop() {
+		return panelTop;
+	}
+
+	public void setPanelTop(PanelTop panelTop) {
+		this.panelTop = panelTop;
+	}
+
+	public PanelOptions getPanelOptions() {
+		return panelOptions;
+	}
+
+	public void setPanelOptions(PanelOptions panelOptions) {
+		this.panelOptions = panelOptions;
+	}
+
+	public PanelConfig getPanelConfig() {
+		return panelConfig;
+	}
+
+	public void setPanelConfig(PanelConfig panelConfig) {
+		this.panelConfig = panelConfig;
+	}
+	
 	
 
 }
