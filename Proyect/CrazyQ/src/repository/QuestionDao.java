@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.Dificulty;
+
 import domain.Question;
 import services.Crud;
 
