@@ -15,7 +15,7 @@ public class Round implements Serializable {
 	
 	private Integer questionId;
 	
-	private Integer answerScore;
+	private Long answerScore;
 
 	private Integer roundNumber;
 
@@ -36,11 +36,11 @@ public class Round implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getAnswerScore() {
+	public Long getAnswerScore() {
 		return this.answerScore;
 	}
 
-	public void setAnswerScore(Integer answerScore) {
+	public void setAnswerScore(Long answerScore) {
 		this.answerScore = answerScore;
 	}
 

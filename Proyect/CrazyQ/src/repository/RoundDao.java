@@ -45,7 +45,7 @@ public class RoundDao implements Crud{
 			while(res.next())
             {
 				c.setRoundNumber(res.getInt(2));
-				c.setAnswerScore(res.getInt(3));
+				c.setAnswerScore(res.getLong(3));
             }
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -106,7 +106,7 @@ public class RoundDao implements Crud{
                 c.setGameId(res.getLong(0));
                 c.setQuestionId(res.getInt(1));
                 c.setRoundNumber(res.getInt(2));
-				c.setAnswerScore(res.getInt(3));
+				c.setAnswerScore(res.getLong(3));
                 
                 resp.add(c);
             }

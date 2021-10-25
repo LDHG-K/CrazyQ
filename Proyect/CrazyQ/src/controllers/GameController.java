@@ -2,7 +2,9 @@ package controllers;
 
 import java.util.List;
 
+import domain.Game;
 import domain.Player;
+import domain.Question;
 import repository.CategoryDao;
 import repository.ConnectionPostgres;
 import repository.DificultyDao;
@@ -10,14 +12,16 @@ import repository.GameDao;
 import repository.PlayerDao;
 import repository.QuestionDao;
 import repository.RoundDao;
+import services.DificultyService;
 import services.GameService;
 import services.PlayerService;
+import services.RoundServices;
 
 public class GameController {
 
 	private final ConnectionPostgres con = new ConnectionPostgres();
 	//private final CategoryDao catdao = new CategoryDao(con);
-	//private final DificultyDao difdao = new DificultyDao(con);
+	private final DificultyDao difdao = new DificultyDao(con);
 	private final GameDao gamdao = new GameDao(con);
 	private final PlayerDao pladao = new PlayerDao(con);
 	//private final QuestionDao quedao = new QuestionDao(con);
@@ -25,13 +29,15 @@ public class GameController {
 	
 	private PlayerService plas;
 	private GameService gams;
-	private 
+	private RoundServices rous;
+	private DificultyService difs;
 	
 	public GameController() {
 		
 		plas = new PlayerService(pladao);
 		gams = new GameService(gamdao);
-				
+		rous = new RoundServices(roudao);
+		difs = new DificultyService(difdao);
 	}
 
 	/**
@@ -44,9 +50,11 @@ public class GameController {
 		//Save player
 		plas.savePlayerStats(player, totalScore);
 		//Save game
-		gams.saveGame(totalScore, player);
+		Object last = gams.saveGame(totalScore, player);
 		//Save round
-		
+		rous.saveRound(difs.valuesOfQuestions(AnsweredQuestions),
+						AnsweredQuestions,
+							((Game)last).getIdGame());
 		
 	}
 	
