@@ -22,7 +22,8 @@ public class Game implements Serializable {
 
 	private Long totalScore;
 
-
+	private String playerName;
+	
 	private Player player;
 
 	
@@ -84,5 +85,14 @@ public class Game implements Serializable {
 
 		return round;
 	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+	
 
 }
