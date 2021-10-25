@@ -53,6 +53,7 @@ public class ConnectionPostgres {
             res = stmt.executeQuery(cad);
             System.out.println("Consulta realizada...  ");
         }catch(Exception ex){
+        	ex.printStackTrace();
             System.out.println("No se pudo efectuar la consulta..." + ex);
         }
 

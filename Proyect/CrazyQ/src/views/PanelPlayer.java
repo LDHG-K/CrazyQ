@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import domain.Player;
 
 public class PanelPlayer extends JPanel implements ActionListener {
 
@@ -20,9 +23,12 @@ public class PanelPlayer extends JPanel implements ActionListener {
 	private JButton search;
 	private JLabel space;
 	
+	private Principal principal;
 	
 	
 	public PanelPlayer (Principal principal) {
+		
+		this.principal = principal;
 		
 		setLayout(new GridLayout(4,2));
 		
@@ -52,7 +58,34 @@ public class PanelPlayer extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		String comando = e.getActionCommand( );
+
+        if( comando.equals( search.getActionCommand()) ) 
+        {
+        	Player  p = null;
+        	try {
+        		p = principal.searchPlayer(player.getText().trim());
+        		
+        		if (p.getLastScore()==null || p.getBestScore()==null) {
+					throw new Exception();
+				}
+        		else {
+        			lastScore.setText(p.getLastScore()+"");
+                    bestScore.setText(p.getBestScore()+"");
+                    JOptionPane.showMessageDialog( this, "Hello "+ player.getText() + ", ready to play again?", "Good to see u :)", JOptionPane.INFORMATION_MESSAGE );
+        		}
+			} catch (Exception e2) {
+				principal.addPlayer(player.getText().trim());
+        		lastScore.setText("0");
+            	bestScore.setText("0");
+            	JOptionPane.showMessageDialog( this, player.getText() + "in not in DB, but it was created! enjoy the game ", "Added new player", JOptionPane.INFORMATION_MESSAGE );
+				
+			}
+        	
+        	
+        	
+        
+        }
 		
 	}
 	

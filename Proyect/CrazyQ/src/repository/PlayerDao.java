@@ -34,15 +34,19 @@ public class PlayerDao implements Crud {
 	@Override
 	public Object read(Object obj) {
 		Player c = (Player) obj;
+		
 		try {
-			String cad = "SELECT * FROM players WHERE nickname = "+c.getNickname();
+			String cad = "SELECT nickname, last_score, best_score FROM players WHERE nickname = '"+c.getNickname()+"'";
 			ResultSet res = con.executeQueryStatement(cad);
+			
 			while(res.next())
-            {
+            {	
 				c.setLastScore(res.getLong(1));
 				c.setBestScore(res.getLong(2));
+
             }
 		} catch (Exception e) {
+			
 			// TODO: handle exception
 		}
 		return c;

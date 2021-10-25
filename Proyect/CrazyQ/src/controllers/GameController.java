@@ -112,7 +112,32 @@ public class GameController {
 		}
 	}
 	
-	
+	public Object SearchPlayer(String player) {
+		try {
+			Object o = plas.searchPlayer(player);
+			if (o==null) {
+				return null;
+			}
+			return o;
+		} catch (Exception e) {
+			return null;
+			// TODO: handle exception
+		}
+	}
+
+	public void addPlayer(String player) {
+		Player p = new Player();
+		p.setNickname(player);
+		p.setBestScore(Long.parseLong("0"));
+		p.setLastScore(Long.parseLong("0"));
+		try {
+			plas.createPlayer(p);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
 	
 	
 	

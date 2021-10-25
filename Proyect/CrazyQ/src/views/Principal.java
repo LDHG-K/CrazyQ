@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import controllers.GameController;
+import domain.Player;
 import domain.Question;
 
 public class Principal extends JFrame {
@@ -124,6 +125,18 @@ public class Principal extends JFrame {
 		gameController.createQuestion(q);
 	}
 	
+	public Player searchPlayer(String player) {
+		
+		Object p = gameController.SearchPlayer(player);
+		if (p==null) {
+			return null;
+		}
+		return (Player) p;
+	}
+	
+	public void addPlayer(String player) {
+		gameController.addPlayer(player);
+	}
 	
 	
 	

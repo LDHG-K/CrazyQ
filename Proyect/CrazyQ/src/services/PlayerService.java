@@ -14,8 +14,13 @@ public class PlayerService {
 	public Object searchPlayer(String player) {
 		Player b = new Player();
 		b.setNickname(player);
+		
 		try {
+			
 			Object p = pd.read(b);
+			if (p==null) {
+				return null;
+			}
 			return p;
 		} catch (Exception e) {
 			return null;
