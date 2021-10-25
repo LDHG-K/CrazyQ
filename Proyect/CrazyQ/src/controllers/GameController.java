@@ -15,6 +15,7 @@ import repository.RoundDao;
 import services.DificultyService;
 import services.GameService;
 import services.PlayerService;
+import services.QuestionService;
 import services.RoundServices;
 
 public class GameController {
@@ -24,13 +25,14 @@ public class GameController {
 	private final DificultyDao difdao = new DificultyDao(con);
 	private final GameDao gamdao = new GameDao(con);
 	private final PlayerDao pladao = new PlayerDao(con);
-	//private final QuestionDao quedao = new QuestionDao(con);
+	private final QuestionDao quedao = new QuestionDao(con);
 	private final RoundDao roudao = new RoundDao(con);
 	
 	private PlayerService plas;
 	private GameService gams;
 	private RoundServices rous;
 	private DificultyService difs;
+	private QuestionService ques;
 	
 	public GameController() {
 		
@@ -38,6 +40,7 @@ public class GameController {
 		gams = new GameService(gamdao);
 		rous = new RoundServices(roudao);
 		difs = new DificultyService(difdao);
+		ques = new QuestionService(quedao);
 	}
 
 	/**
@@ -63,11 +66,11 @@ public class GameController {
 	 * @return list of 5 questions 
 	 */
 	public List<Object> getQuestions(String dificulty){
-		
-		
-		
-		return null;
-		
+		try {
+			return ques.questionsByCategory(dificulty);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	
